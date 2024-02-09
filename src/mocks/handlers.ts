@@ -73,10 +73,15 @@ export const handlers = [
     return HttpResponse.json({ data: tickets });
   }),
 
-  http.get('/api/ticket/:id', async ({ params }) => {
-    const id = params.id as string;
-    await delay(getRandomDelay());
-    const ticket = db.ticket.findFirst({ where: { id: { equals: id } } });
-    return HttpResponse.json({ data: ticket });
-  }),
+  http.get<{ ticketId: string }>(
+    '/api/ticket/:ticketId',
+    async ({ params }) => {
+      const { ticketId } = params;
+      await delay(getRandomDelay());
+      const ticket = db.ticket.findFirst({
+        where: { id: { equals: ticketId } },
+      });
+      return HttpResponse.json({ data: ticket });
+    }
+  ),
 ];

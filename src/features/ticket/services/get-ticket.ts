@@ -6,14 +6,14 @@ import { TicketType } from '../types';
 
 interface Response extends BaseResponse<TicketType> {}
 interface Variables {
-  id: string;
+  ticketId: string;
 }
 export const useTicketQuery = createQuery<Response, Variables, Error>({
   queryKey: ['tickets'],
   refetchOnMount: true,
   refetchOnWindowFocus: true,
-  fetcher: async ({ id }) =>
-    fetch(`/api/ticket/${id}`, {
+  fetcher: async ({ ticketId }) =>
+    fetch(`/api/ticket/${ticketId}`, {
       method: 'GET',
     }).then((res) => res.json()),
 });

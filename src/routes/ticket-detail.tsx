@@ -7,13 +7,13 @@ import { withNavbar } from '@/hocs/with-navbar';
 
 export const TicketDetailPage = withNavbar(
   () => {
-    const { id } = useParams<{ id: string }>();
+    const { ticketId = '' } = useParams<{ ticketId: string }>();
     const {
       data: ticketData,
       isLoading,
       isSuccess,
     } = useTicketQuery({
-      variables: { id: id as string },
+      variables: { ticketId },
     });
 
     return (
