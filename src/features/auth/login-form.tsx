@@ -92,9 +92,17 @@ export const LoginForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" isLoading={loginMutation.isPending}>
-          Submit
-        </Button>
+        <div className="flex items-center justify-end">
+          <Button
+            className="flex-1"
+            variant="default"
+            size="lg"
+            type="submit"
+            isLoading={loginMutation.isPending}
+          >
+            Sign-in
+          </Button>
+        </div>
       </form>
     </Form>
   );
