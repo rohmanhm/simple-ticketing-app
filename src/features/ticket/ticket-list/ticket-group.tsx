@@ -52,6 +52,10 @@ export const TicketGroup = ({
           {ticketsData.map((ticket) => (
             <TicketCard key={ticket.id} ticket={ticket} />
           ))}
+
+          {ticketsData.length === 0 && !isLoading && (
+            <div className="p-4 text-center dark:text-slate-400">Empty.</div>
+          )}
         </CollapsibleContent>
       </Collapsible>
     </div>

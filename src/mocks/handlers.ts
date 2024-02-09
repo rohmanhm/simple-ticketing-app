@@ -64,7 +64,12 @@ export const handlers = [
       filter = { where: { status: { equals: status } } };
     }
 
-    const tickets = db.ticket.findMany({ skip: 0, take: 10, ...filter });
+    const tickets = db.ticket.findMany({
+      skip: 0,
+      take: 10,
+      ...filter,
+      orderBy: { created_at: 'desc' },
+    });
     return HttpResponse.json({ data: tickets });
   }),
 

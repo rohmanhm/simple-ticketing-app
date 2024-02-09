@@ -9,11 +9,9 @@ export const TicketDetail = ({ defaultValues }: TicketDetailProps) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <EditTicketForm
-        onUpdated={() => navigate('/')}
-        defaultValues={defaultValues}
-      />
-    </div>
+    <EditTicketForm
+      onUpdated={() => navigate('/')}
+      defaultValues={defaultValues}
+    />
   );
 };

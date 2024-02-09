@@ -15,8 +15,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 
-import { useAuth } from '../hooks/use-auth';
-import { useLoginMutation } from '../services';
+import { useAuth } from './hooks/use-auth';
+import { useLoginMutation } from './services';
 
 const LoginFormSchema = z.object({
   email: z.string().email(),

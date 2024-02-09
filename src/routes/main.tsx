@@ -1,6 +1,8 @@
 import { CreateTicketDialog, TicketList } from '@/features/ticket';
 
-export const MainPage = () => {
+import { withNavbar } from '@/hocs/with-navbar';
+
+export const MainPage = withNavbar(() => {
   return (
     <div className="w-4xl mt-5">
       <div className="mb-5 flex justify-end">
@@ -9,4 +11,4 @@ export const MainPage = () => {
       <TicketList />
     </div>
   );
-};
+});

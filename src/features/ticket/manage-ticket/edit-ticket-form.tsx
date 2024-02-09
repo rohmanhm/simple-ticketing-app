@@ -30,7 +30,7 @@ export const EditTicketForm = ({
   });
 
   const mutation = useUpdateTicketMutation({
-    onSettled(response, error) {
+    onSettled: async (response, error) => {
       if (response?.error || error) {
         return toast({
           variant: 'destructive',
@@ -38,16 +38,18 @@ export const EditTicketForm = ({
         });
       }
 
+      await queryClient.invalidateQueries({
+        queryKey: useTicketsQuery.getKey(),
+      });
+
       toast({
         variant: 'success',
         description: `Ticket "${response?.data.title}" is updated.`,
       });
 
-      queryClient.invalidateQueries({ queryKey: useTicketsQuery.getKey() });
+      onUpdated?.();
 
       form.reset();
-
-      onUpdated?.();
     },
   });
 
