@@ -14,7 +14,7 @@ import {
 import { inheritInternalProperties } from '@mswjs/data/lib/utils/inheritInternalProperties';
 import debounce from 'lodash.debounce';
 
-const STORAGE_KEY_PREFIX = 'mswjs-data';
+const STORAGE_KEY_PREFIX = 'simple-ticketing-app';
 
 // Timout to persist state with some delay
 const DEBOUNCE_PERSIST_TIME_MS = 10;
@@ -32,13 +32,15 @@ type SerializedModels<Dictionary extends ModelDictionary> = Record<
 export default function persist<Dictionary extends ModelDictionary>(
   factory: FactoryAPI<Dictionary>
 ) {
-  if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') {
+  if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
     return;
   }
 
   const db = factory[DATABASE_INSTANCE];
 
-  const key = `${STORAGE_KEY_PREFIX}/${db.id}`;
+  // NOTE: If you want a unique db everytime you run the app, you can make it unique by using the db.id
+  // const key = `${STORAGE_KEY_PREFIX}/${db.id}`;
+  const key = `${STORAGE_KEY_PREFIX}/your-unique-hash-for-each-run-or-differ-db-store`;
 
   const persistState = debounce(function persistState() {
     // eslint-disable-next-line @typescript-eslint/dot-notation, @typescript-eslint/consistent-type-assertions
@@ -55,11 +57,11 @@ export default function persist<Dictionary extends ModelDictionary>(
       ])
     );
 
-    sessionStorage.setItem(key, JSON.stringify(json));
+    localStorage.setItem(key, JSON.stringify(json));
   }, DEBOUNCE_PERSIST_TIME_MS);
 
   function hydrateState() {
-    const initialState = sessionStorage.getItem(key);
+    const initialState = localStorage.getItem(key);
 
     if (initialState) {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions

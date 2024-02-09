@@ -1,5 +1,5 @@
 export * from './ticket-list';
-export * from './create-ticket';
+export * from './manage-ticket';
 
 export * from './services';
 

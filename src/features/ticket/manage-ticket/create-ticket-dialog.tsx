@@ -22,12 +22,7 @@ export const CreateTicketDialog = () => {
           Add New
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className="sm:max-w-md"
-        onInteractOutside={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Create a new ticket</DialogTitle>
         </DialogHeader>

@@ -7,3 +7,5 @@ export const useDisclosure = () => {
   const onToggle = () => setIsOpen(!isOpen);
   return { isOpen, onOpen, onClose, onToggle };
 };
+
+export type WithDisclosureProps = Partial<ReturnType<typeof useDisclosure>>;

@@ -1,5 +1,7 @@
 import { HttpResponse, delay, http } from 'msw';
 
+import { Ticket } from '@/features/ticket';
+
 import { db } from './db';
 
 const POSSIBLE_DELAYS = [500, 1000, 2000];
@@ -34,11 +36,21 @@ export const handlers = [
   }),
 
   http.post<never, never>('/api/tickets', async ({ request }) => {
-    const ticket = await request.json();
+    const ticket = (await request.json()) as Ticket;
     await delay(getRandomDelay());
 
     const createdTicket = db.ticket.create(ticket);
     return HttpResponse.json({ data: createdTicket });
+  }),
+
+  http.put<never, never>('/api/tickets', async ({ request }) => {
+    const ticket = (await request.json()) as Ticket;
+    await delay(getRandomDelay());
+    const updatedTicket = db.ticket.update({
+      data: ticket,
+      where: { id: { equals: ticket.id } },
+    });
+    return HttpResponse.json({ data: updatedTicket });
   }),
 
   http.get('/api/tickets', async ({ request }) => {
