@@ -38,6 +38,11 @@ export const CreateTicketForm = ({ onCreated }: CreateTicketFormProps) => {
         });
       }
 
+      toast({
+        variant: 'success',
+        description: `Ticket "${response?.data.title}" is created.`,
+      });
+
       queryClient.invalidateQueries({ queryKey: useTicketsQuery.getKey() });
 
       form.reset();
@@ -56,6 +61,7 @@ export const CreateTicketForm = ({ onCreated }: CreateTicketFormProps) => {
         submitLabel="Create"
         onSubmit={onSubmit}
         isActionLoading={mutation.isPending}
+        enableAllStatusOptions={true}
       />
     </Form>
   );

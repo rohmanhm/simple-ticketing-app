@@ -38,6 +38,11 @@ export const EditTicketForm = ({
         });
       }
 
+      toast({
+        variant: 'success',
+        description: `Ticket "${response?.data.title}" is updated.`,
+      });
+
       queryClient.invalidateQueries({ queryKey: useTicketsQuery.getKey() });
 
       form.reset();

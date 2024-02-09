@@ -7,11 +7,11 @@ import {
 } from '@/components/ui/collapsible';
 
 import { useTicketsQuery } from '../services/get-tickets';
-import { Ticket } from '../types';
+import { TicketType } from '../types';
 import { TicketCard } from './ticket-card';
 
 interface TicketGroupProps {
-  status: Ticket['status'];
+  status: TicketType['status'];
   title: string;
   description?: string;
 }

@@ -2,9 +2,9 @@ import { createQuery } from 'react-query-kit';
 
 import { BaseResponse } from '@/types';
 
-import { Ticket } from '../types';
+import { TicketType } from '../types';
 
-interface Response extends BaseResponse<Ticket[]> {}
+interface Response extends BaseResponse<TicketType[]> {}
 interface Variables {
   status?: string;
 }

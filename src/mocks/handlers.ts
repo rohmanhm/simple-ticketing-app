@@ -1,6 +1,6 @@
 import { HttpResponse, delay, http } from 'msw';
 
-import { Ticket } from '@/features/ticket';
+import { TicketType } from '@/features/ticket';
 
 import { db } from './db';
 
@@ -36,7 +36,7 @@ export const handlers = [
   }),
 
   http.post<never, never>('/api/tickets', async ({ request }) => {
-    const ticket = (await request.json()) as Ticket;
+    const ticket = (await request.json()) as TicketType;
     await delay(getRandomDelay());
 
     const createdTicket = db.ticket.create(ticket);
@@ -44,7 +44,7 @@ export const handlers = [
   }),
 
   http.put<never, never>('/api/tickets', async ({ request }) => {
-    const ticket = (await request.json()) as Ticket;
+    const ticket = (await request.json()) as TicketType;
     await delay(getRandomDelay());
     const updatedTicket = db.ticket.update({
       data: ticket,
@@ -66,5 +66,12 @@ export const handlers = [
 
     const tickets = db.ticket.findMany({ skip: 0, take: 10, ...filter });
     return HttpResponse.json({ data: tickets });
+  }),
+
+  http.get('/api/ticket/:id', async ({ params }) => {
+    const id = params.id as string;
+    await delay(getRandomDelay());
+    const ticket = db.ticket.findFirst({ where: { id: { equals: id } } });
+    return HttpResponse.json({ data: ticket });
   }),
 ];

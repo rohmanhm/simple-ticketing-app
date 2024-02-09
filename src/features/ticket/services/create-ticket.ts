@@ -2,10 +2,10 @@ import { createMutation } from 'react-query-kit';
 
 import { BaseResponse } from '@/types';
 
-import { Ticket } from '../types';
+import { TicketType } from '../types';
 
-interface Response extends BaseResponse<Ticket> {}
-type Variables = Partial<Ticket>;
+interface Response extends BaseResponse<TicketType> {}
+type Variables = Partial<TicketType>;
 
 export const useCreateTicketMutation = createMutation<
   Response,

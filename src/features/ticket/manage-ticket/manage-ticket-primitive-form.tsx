@@ -30,16 +30,49 @@ export type ManageTicketPrimitiveFormSchemaType = z.infer<
   typeof ManageTicketPrimitiveFormSchema
 >;
 
+const STATUS_OPTIONS = [
+  {
+    label: 'Open',
+    value: 'open',
+  },
+  {
+    label: 'In Progress',
+    value: 'in-progress',
+  },
+  {
+    label: 'Completed',
+    value: 'completed',
+  },
+];
+const STATUS_VALUES = STATUS_OPTIONS.map((status) => status.value);
+
+// By default, we want to disable the current value.
+// If we want to only enable certain values for a specific status, we can add
+// a mapping here.
+const STATUS_CONFIG_MAPPING = {
+  completed: ['open'],
+  // Put undefined to show all the options.
+  // Keep remember the current value is always disabled by default.
+  open: undefined,
+  'in-progress': undefined,
+};
+
 interface ManageTicketPrimitiveFormProps {
   onSubmit: (data: ManageTicketPrimitiveFormSchemaType) => void;
-  isActionLoading?: boolean;
   submitLabel?: string;
+  isActionLoading?: boolean;
+  /**
+   * If this being enabled, we won't disable the options
+   * with the disabled rules from the status config.
+   */
+  enableAllStatusOptions?: boolean;
 }
 
 export const ManageTicketPrimitiveForm = ({
   onSubmit,
   isActionLoading = false,
   submitLabel = 'Submit',
+  enableAllStatusOptions = false,
 }: ManageTicketPrimitiveFormProps) => {
   const form = useFormContext<ManageTicketPrimitiveFormSchemaType>();
   return (
@@ -58,9 +91,26 @@ export const ManageTicketPrimitiveForm = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="open">Open</SelectItem>
-                  <SelectItem value="in-progress">In Progress</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
+                  {STATUS_OPTIONS.map((status) => {
+                    // If we have configured the allowed options for the current
+                    // status, we want to use that. Otherwise, we want to allow to use all the options.
+                    const rule =
+                      STATUS_CONFIG_MAPPING[field.value] ?? STATUS_VALUES;
+                    const disabled = enableAllStatusOptions
+                      ? false // By default we want to disable for the current value.
+                      : field.value === status.value ||
+                        !rule?.includes(status.value);
+
+                    return (
+                      <SelectItem
+                        key={status.value}
+                        disabled={disabled}
+                        value={status.value}
+                      >
+                        {status.label}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </FormControl>
@@ -100,7 +150,7 @@ export const ManageTicketPrimitiveForm = ({
         )}
       />
 
-      <div className="py-2">
+      <div className="flex items-center justify-end py-2">
         <Button type="submit" isLoading={isActionLoading}>
           {submitLabel}
         </Button>
