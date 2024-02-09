@@ -11,6 +11,14 @@ import {
 
 export const router = createBrowserRouter([
   {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/logout',
+    element: <LogoutPage />,
+  },
+  {
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
@@ -24,13 +32,5 @@ export const router = createBrowserRouter([
         element: <TicketDetailPage />,
       },
     ],
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/logout',
-    element: <LogoutPage />,
   },
 ]);
