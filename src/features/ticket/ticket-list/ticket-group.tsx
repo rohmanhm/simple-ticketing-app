@@ -30,34 +30,32 @@ export const TicketGroup = ({
   });
   const ticketsData = tickets?.data || [];
   return (
-    <div className="border-2 dark:border-slate-900">
-      <Collapsible defaultOpen>
-        <CollapsibleTrigger className="w-full">
-          <div className="bg-gray-300 p-4 text-left dark:bg-slate-800">
-            <span className="text-lg">
-              {title} {isSuccess && `(${ticketsData.length})`}
-            </span>
-            {!!description && (
-              <p className="text-sm dark:text-slate-400">{description}</p>
-            )}
+    <Collapsible defaultOpen>
+      <CollapsibleTrigger className="w-full">
+        <div className="bg-gray-300 p-6 py-2 text-left font-bold dark:bg-slate-950">
+          <span className="text-lg">
+            {title} {isSuccess && `(${ticketsData.length})`}
+          </span>
+          {!!description && (
+            <p className="text-sm dark:text-slate-400">{description}</p>
+          )}
+        </div>
+      </CollapsibleTrigger>
+      <CollapsibleContent className="dark:bg-slate-900">
+        {isLoading && (
+          <div className="p-4 text-center dark:text-slate-400">
+            <Loader2Icon className="animate-spin" />
           </div>
-        </CollapsibleTrigger>
-        <CollapsibleContent className="dark:bg-slate-900">
-          {isLoading && (
-            <div className="p-4 text-center dark:text-slate-400">
-              <Loader2Icon className="animate-spin" />
-            </div>
-          )}
+        )}
 
-          {ticketsData.map((ticket) => (
-            <TicketCard key={ticket.id} ticket={ticket} />
-          ))}
+        {ticketsData.map((ticket) => (
+          <TicketCard key={ticket.id} ticket={ticket} />
+        ))}
 
-          {ticketsData.length === 0 && !isLoading && (
-            <div className="p-4 text-center dark:text-slate-400">Empty.</div>
-          )}
-        </CollapsibleContent>
-      </Collapsible>
-    </div>
+        {ticketsData.length === 0 && !isLoading && (
+          <div className="p-4 text-center dark:text-slate-400">Empty.</div>
+        )}
+      </CollapsibleContent>
+    </Collapsible>
   );
 };

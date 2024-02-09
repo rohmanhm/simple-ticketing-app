@@ -32,7 +32,7 @@ export const TicketCard = ({ ticket }: TicketCardProps) => {
             )}
           </div>
           <Button
-            variant="outline"
+            variant="secondary"
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();

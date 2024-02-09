@@ -98,8 +98,7 @@ export const ManageTicketPrimitiveForm = ({
                       STATUS_CONFIG_MAPPING[field.value] ?? STATUS_VALUES;
                     const disabled = enableAllStatusOptions
                       ? false
-                      : // By default we want to disable for the current value.
-                        field.value === status.value ||
+                      : field.value !== status.value &&
                         !rule?.includes(status.value);
 
                     return (
