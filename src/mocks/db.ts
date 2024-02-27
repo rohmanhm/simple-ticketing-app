@@ -15,8 +15,25 @@ export const db = factory({
       // The requirement says we need to store it as timestamp
       Date.now(),
   },
+  user: {
+    id: primaryKey(generateRandomId),
+    email: String,
+    password: String,
+  },
 });
 
 persist(db);
 
 export const dropDb = () => drop(db);
+
+export const seedDb = () => {
+  db.user.create({
+    email: 'mhrohman@live.com',
+    password: 'test123456',
+  });
+
+  db.user.create({
+    email: 'test@email.com',
+    password: 'test123456',
+  });
+};

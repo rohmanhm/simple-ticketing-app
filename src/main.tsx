@@ -13,6 +13,7 @@ async function enableMocking() {
 
   const {
     worker,
+    // seedDb,
     // dropDb
   } = await import('./mocks/browser');
 
@@ -22,6 +23,9 @@ async function enableMocking() {
 
   // Uncomment this to drop the database.
   // await dropDb();
+
+  // Uncomment this to seed the database.
+  // await seedDb();
 
   return;
 }

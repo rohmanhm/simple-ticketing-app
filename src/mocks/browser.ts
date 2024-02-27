@@ -4,4 +4,4 @@ import { handlers } from './handlers';
 
 export const worker = setupWorker(...handlers);
 
-export { dropDb } from './db';
+export { dropDb, seedDb } from './db';

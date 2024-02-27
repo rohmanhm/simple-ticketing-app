@@ -19,16 +19,26 @@ export const handlers = [
     async ({ request }) => {
       const { email, password } = await request.json();
       await delay(getRandomDelay());
-      if (
-        (email === 'test@vroom.com.au' && password === 'frontendtest2024') ||
-        (email === 'mhrohman@live.com' && password === 'test123456')
-      ) {
-        return HttpResponse.json({ message: 'authenticated', data: { email } });
+
+      try {
+        const user = db.user.findFirst({
+          where: { email: { equals: email }, password: { equals: password } },
+        });
+
+        if (user) {
+          return HttpResponse.json({
+            message: 'authenticated',
+            data: { email },
+          });
+        }
+
+        throw new Error('Invalid email or password');
+      } catch (err) {
+        return HttpResponse.json(
+          { error: 'Invalid email or password' },
+          { status: 401 }
+        );
       }
-      return HttpResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
     }
   ),
   http.post('/api/auth/logout', async () => {

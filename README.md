@@ -2,7 +2,6 @@
 
 > A simple ticketing app built with React, TypeScript, and Tailwind CSS.
 
-
 ## Table of Contents
 
 - [Simple Ticketing App](#simple-ticketing-app)
@@ -10,6 +9,7 @@
   - [Technologies](#technologies)
   - [Requirements](#requirements)
   - [Development](#development)
+  - [How to seed and drop database](#how-to-seed-and-drop-database)
   - [Project Pattern, File \& Folder Structure](#project-pattern-file--folder-structure)
     - [Resources](#resources)
 
@@ -38,6 +38,22 @@
 3. Run `pnpm dev` to start the development server
 4. Open `http://localhost:3000` in your browser
 5. Happy coding!
+
+## How to seed and drop database
+
+We use the `msw` to mock the API requests. And the data will be saved into the user browser localstorage. If you want to seed the database, you can follow the steps below.
+
+1. Go to the `src/main.tsx` file.
+2. You can find the following code block in the `src/main.tsx` file.
+  ```javascript
+    // Uncomment this to drop the database.
+    // await dropDb();
+
+    // Uncomment this to seed the database.
+    // await seedDb();
+   ```
+3. Try to uncomment the `await seedDb();` line to seed the database, or uncomment the `await dropDb();` line to drop the database.
+4. Save the file.
 
 ## Project Pattern, File & Folder Structure
 
