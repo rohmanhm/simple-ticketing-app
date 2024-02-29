@@ -11,7 +11,7 @@ import type { TicketType } from '../types';
 export interface TicketCardProps {
   ticket: TicketType;
   isDragging?: boolean;
-  dragAreaProps?: React.HTMLAttributes<HTMLDivElement>;
+  dragAreaProps?: React.HTMLAttributes<HTMLButtonElement>;
 }
 
 export const TicketCard = ({
@@ -27,15 +27,15 @@ export const TicketCard = ({
       <div
         className={cn(
           'group flex cursor-default flex-row items-center pr-4 hover:bg-gray-200 dark:hover:bg-slate-800',
-          { 'w-96': isDragging }
+          { 'w-96': isDragging, 'bg-gray-200 dark:bg-slate-800': isDragging }
         )}
       >
-        <div
+        <button
           className="flex items-center self-stretch bg-slate-800 px-2 hover:cursor-grab hover:bg-slate-950"
           {...dragAreaProps}
         >
           <GripVerticalIcon className="h-4 w-4 text-slate-500 hover:text-slate-100" />
-        </div>
+        </button>
 
         <div className="flex flex-1 flex-col p-4 pr-0">
           <div className="flex items-center dark:text-slate-600">

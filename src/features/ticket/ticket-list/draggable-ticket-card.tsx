@@ -14,11 +14,11 @@ export const DraggableTicketCard = ({ ticket }: TicketCardProps) => {
     : undefined;
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes}>
+    <div ref={setNodeRef} style={style}>
       <TicketCard
         isDragging={isDragging}
         ticket={ticket}
-        dragAreaProps={listeners}
+        dragAreaProps={{ ...listeners, ...attributes }}
       />
     </div>
   );

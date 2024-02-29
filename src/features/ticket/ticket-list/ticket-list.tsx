@@ -3,6 +3,11 @@ import {
   DragEndEvent,
   DragOverlay,
   DragStartEvent,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
 } from '@dnd-kit/core';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -10,14 +15,19 @@ import { useState } from 'react';
 import { useTicketsQuery, useUpdateTicketMutation } from '../services';
 import { TicketType } from '../types';
 import { checkAllowedToMoveStatus } from '../utils';
-
 import { DroppableTicketGroup } from './droppable-ticket-group';
 import { TicketCard } from './ticket-card';
 
 export const TicketList = () => {
   const queryClient = useQueryClient();
+
   const [isDragging, setIsDragging] = useState(false);
   const [activeTicket, setActiveTicket] = useState<TicketType | null>(null);
+
+  const mouseSensor = useSensor(MouseSensor);
+  const touchSensor = useSensor(TouchSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   const updateTicketMutation = useUpdateTicketMutation({
     onSettled: () => {
@@ -54,7 +64,11 @@ export const TicketList = () => {
   }
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
       <div className="flex flex-col overflow-hidden rounded-xl border-4 dark:border-slate-900">
         <DroppableTicketGroup status="open" title="Open" />
         <DroppableTicketGroup status="in-progress" title="In Progress" />
