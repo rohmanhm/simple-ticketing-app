@@ -8,6 +8,7 @@ import {
 
 import { useTicketsQuery } from '../services/get-tickets';
 import { TicketType } from '../types';
+
 import { DraggableTicketCard } from './draggable-ticket-card';
 
 export interface TicketGroupProps {

@@ -45,13 +45,15 @@ We use the `msw` to mock the API requests. And the data will be saved into the u
 
 1. Go to the `src/main.tsx` file.
 2. You can find the following code block in the `src/main.tsx` file.
-  ```javascript
-    // Uncomment this to drop the database.
-    // await dropDb();
 
-    // Uncomment this to seed the database.
-    // await seedDb();
-   ```
+```javascript
+// Uncomment this to drop the database.
+// await dropDb();
+
+// Uncomment this to seed the database.
+// await seedDb();
+```
+
 3. Try to uncomment the `await seedDb();` line to seed the database, or uncomment the `await dropDb();` line to drop the database.
 4. Save the file.
 
@@ -77,5 +79,6 @@ src/
 ```
 
 ### Resources
+
 - [A feature based approach to React development](https://ryanlanciaux.com/blog/2017/08/20/a-feature-based-approach-to-react-development/)
 - [Structuring React Projects with Feature-Driven Development 🏗️](https://medium.com/@Evelyn.Taylor/structuring-react-projects-with-feature-driven-development-%EF%B8%8F-b671ee898145)

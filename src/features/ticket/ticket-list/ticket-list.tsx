@@ -7,11 +7,12 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
-import { TicketCard } from '.';
 import { useTicketsQuery, useUpdateTicketMutation } from '../services';
 import { TicketType } from '../types';
 import { checkAllowedToMoveStatus } from '../utils';
+
 import { DroppableTicketGroup } from './droppable-ticket-group';
+import { TicketCard } from './ticket-card';
 
 export const TicketList = () => {
   const queryClient = useQueryClient();

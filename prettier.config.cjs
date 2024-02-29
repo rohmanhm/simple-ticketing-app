@@ -14,6 +14,8 @@ module.exports = {
     '<THIRD_PARTY_MODULES>',
     '^@/features/(.*)$',
     '^@/(.*)$',
+    '^../(.*)$',
+    '^./(.*)$',
     '(.css)$',
     '^[./]',
   ],

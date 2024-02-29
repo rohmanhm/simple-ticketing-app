@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import './index.css';
-
 import App from './App.tsx';
+import './index.css';
 
 async function enableMocking() {
   // NOTE: We always want to enable mocking

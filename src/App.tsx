@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 
 import './App.css';
-
 import { router } from './router';
 
 const queryClient = new QueryClient();

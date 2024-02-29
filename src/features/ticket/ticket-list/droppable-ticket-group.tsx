@@ -1,6 +1,7 @@
 import { useDroppable } from '@dnd-kit/core';
 
 import { checkAllowedToMoveStatus } from '../utils';
+
 import { TicketGroup, TicketGroupProps } from './ticket-group';
 
 export const DroppableTicketGroup = (props: TicketGroupProps) => {
