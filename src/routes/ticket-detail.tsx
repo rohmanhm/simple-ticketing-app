@@ -1,7 +1,7 @@
 import { Loader2Icon } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
-import { TicketDetail, TicketType, useTicketQuery } from '@/features/ticket';
+import { TicketDetail, useTicketQuery } from '@/features/ticket';
 
 import { withNavbar } from '@/hocs/with-navbar';
 
@@ -23,9 +23,7 @@ export const TicketDetailPage = withNavbar(
             <Loader2Icon className="h-10 w-10 animate-spin" />
           </div>
         )}
-        {isSuccess && (
-          <TicketDetail defaultValues={ticketData?.data as TicketType} />
-        )}
+        {isSuccess && <TicketDetail defaultValues={ticketData?.data} />}
       </div>
     );
   },

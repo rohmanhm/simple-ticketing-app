@@ -2,9 +2,22 @@
 
 > A simple ticketing app built with React, TypeScript, and Tailwind CSS.
 
+If you just try to learn how to build a simple ticketing app with React, TypeScript, and Tailwind CSS, this repository is for you. This repository is a simple ticketing app that allows you to create, read, and update the tickets. We use the `msw` to mock the API requests. And the data will be saved into the user browser localstorage.
+
+### What you will learn from this repository
+
+- API Mock with MSW + Database migration.
+- Authentication flow (login and store the credentials to cookies, and logout).
+- Local first drag & drop interaction.
+- React Query for fetching and caching the data.
+- Feature-driven folder structure.
+- Reusable form.
+- High order component & hooks concepts.
+
 ## Table of Contents
 
 - [Simple Ticketing App](#simple-ticketing-app)
+    - [What you will learn from this repository](#what-you-will-learn-from-this-repository)
   - [Table of Contents](#table-of-contents)
   - [Technologies](#technologies)
   - [Requirements](#requirements)
