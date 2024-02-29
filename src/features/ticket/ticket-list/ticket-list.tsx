@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useTicketsQuery, useUpdateTicketMutation } from '../services';
 import { TicketType } from '../types';
 import { checkAllowedToMoveStatus } from '../utils';
+
 import { DroppableTicketGroup } from './droppable-ticket-group';
 import { TicketCard } from './ticket-card';
 
@@ -30,6 +31,29 @@ export const TicketList = () => {
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   const updateTicketMutation = useUpdateTicketMutation({
+    onMutate: (variables) => {
+      // Removing from the previous status
+      queryClient.setQueryData(
+        useTicketsQuery.getKey({ status: activeTicket?.status }),
+        (old) => ({
+          ...old,
+          data:
+            old?.data.filter((ticket) => ticket.id !== activeTicket?.id) ?? [],
+        })
+      );
+      // Adding to the targeted status
+      queryClient.setQueryData(
+        useTicketsQuery.getKey({ status: variables.status }),
+        (old) => ({
+          ...old,
+          data:
+            old?.data
+              .concat(activeTicket as TicketType)
+              .sort((a, b) => b.created_at - a.created_at) ?? [],
+        })
+      );
+      setActiveTicket(null);
+    },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: useTicketsQuery.getKey() });
     },
@@ -42,7 +66,6 @@ export const TicketList = () => {
 
   function handleDragEnd(event: DragEndEvent) {
     setIsDragging(false);
-    setActiveTicket(null);
 
     const { over, active } = event;
 
@@ -52,7 +75,6 @@ export const TicketList = () => {
       over?.id as string
     );
 
-    // prevent moving to it's own.
     if (isNotMoving || !isAllowedToMove) {
       return;
     }
