@@ -41,6 +41,34 @@ export const handlers = [
       }
     }
   ),
+  http.post<never, { email: string; password: string }>(
+    '/api/auth/register',
+    async ({ request }) => {
+      const { email, password } = await request.json();
+      await delay(getRandomDelay());
+
+      try {
+        const user = db.user.create({
+          email,
+          password,
+        });
+
+        if (user) {
+          return HttpResponse.json({
+            message: 'authenticated',
+            data: { email },
+          });
+        }
+
+        throw new Error('Failed to create a new user.');
+      } catch (err) {
+        return HttpResponse.json(
+          { error: 'Failed to create a new user.' },
+          { status: 401 }
+        );
+      }
+    }
+  ),
   http.post('/api/auth/logout', async () => {
     await delay(getRandomDelay());
   }),

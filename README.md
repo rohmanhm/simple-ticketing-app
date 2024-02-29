@@ -7,7 +7,7 @@ If you just try to learn how to build a simple ticketing app with React, TypeScr
 ### What you will learn from this repository
 
 - API Mock with MSW + Database migration.
-- Authentication flow (login and store the credentials to cookies, and logout).
+- Authentication flow (login, register, logout, and store the credentials to cookies).
 - Local first drag & drop interaction.
 - React Query for fetching and caching the data.
 - Feature-driven folder structure.

@@ -16,27 +16,27 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 
 import { useAuth } from './hooks/use-auth';
-import { useLoginMutation } from './services';
+import { useRegisterMutation } from './services';
 
-const LoginFormSchema = z.object({
+const FormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const { saveUser } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof LoginFormSchema>>({
-    resolver: zodResolver(LoginFormSchema),
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const loginMutation = useLoginMutation({
+  const registerMutation = useRegisterMutation({
     onSettled(response, error) {
       if (response?.error || error) {
         return toast({
@@ -47,7 +47,7 @@ export const LoginForm = () => {
 
       toast({
         variant: 'success',
-        description: 'Successfully logged in. Redirecting to dashboard.',
+        description: 'Register a new user success. Redirecting to dashboard.',
       });
 
       // Store user session in cookies
@@ -59,8 +59,8 @@ export const LoginForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof LoginFormSchema>) {
-    loginMutation.mutate(values);
+  function onSubmit(values: z.infer<typeof FormSchema>) {
+    registerMutation.mutate(values);
   }
 
   return (
@@ -98,9 +98,9 @@ export const LoginForm = () => {
             variant="default"
             size="lg"
             type="submit"
-            isLoading={loginMutation.isPending}
+            isLoading={registerMutation.isPending}
           >
-            Sign-In
+            Sign-Up
           </Button>
         </div>
       </form>
