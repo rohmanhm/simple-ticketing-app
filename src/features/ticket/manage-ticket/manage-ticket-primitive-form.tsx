@@ -19,6 +19,9 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 
+import { TICKET_STATUS_OPTIONS } from '../constants';
+import { checkAllowedToMoveStatus } from '../utils';
+
 export const ManageTicketPrimitiveFormSchema = z.object({
   id: z.string().optional(),
   title: z.string().max(100),
@@ -29,33 +32,6 @@ export const ManageTicketPrimitiveFormSchema = z.object({
 export type ManageTicketPrimitiveFormSchemaType = z.infer<
   typeof ManageTicketPrimitiveFormSchema
 >;
-
-const STATUS_OPTIONS = [
-  {
-    label: 'Open',
-    value: 'open',
-  },
-  {
-    label: 'In Progress',
-    value: 'in-progress',
-  },
-  {
-    label: 'Completed',
-    value: 'completed',
-  },
-];
-const STATUS_VALUES = STATUS_OPTIONS.map((status) => status.value);
-
-// By default, we want to disable the current value.
-// If we want to only enable certain values for a specific status, we can add
-// a mapping here.
-const STATUS_CONFIG_MAPPING = {
-  completed: ['open'],
-  // Put undefined to show all the options.
-  // Keep remember the current value is always disabled by default.
-  open: undefined,
-  'in-progress': undefined,
-};
 
 interface ManageTicketPrimitiveFormProps {
   onSubmit: (data: ManageTicketPrimitiveFormSchemaType) => void;
@@ -91,15 +67,10 @@ export const ManageTicketPrimitiveForm = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {STATUS_OPTIONS.map((status) => {
-                    // If we have configured the allowed options for the current
-                    // status, we want to use that. Otherwise, we want to allow to use all the options.
-                    const rule =
-                      STATUS_CONFIG_MAPPING[field.value] ?? STATUS_VALUES;
+                  {TICKET_STATUS_OPTIONS.map((status) => {
                     const disabled = enableAllStatusOptions
                       ? false
-                      : field.value !== status.value &&
-                        !rule?.includes(status.value);
+                      : !checkAllowedToMoveStatus(field.value, status.value);
 
                     return (
                       <SelectItem

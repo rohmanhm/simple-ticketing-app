@@ -8,9 +8,9 @@ import {
 
 import { useTicketsQuery } from '../services/get-tickets';
 import { TicketType } from '../types';
-import { TicketCard } from './ticket-card';
+import { DraggableTicketCard } from './draggable-ticket-card';
 
-interface TicketGroupProps {
+export interface TicketGroupProps {
   status: TicketType['status'];
   title: string;
   description?: string;
@@ -28,7 +28,7 @@ export const TicketGroup = ({
   } = useTicketsQuery({
     variables: { status },
   });
-  const ticketsData = tickets?.data || [];
+  const ticketsData = tickets?.data ?? [];
   return (
     <Collapsible defaultOpen>
       <CollapsibleTrigger className="w-full">
@@ -41,7 +41,7 @@ export const TicketGroup = ({
           )}
         </div>
       </CollapsibleTrigger>
-      <CollapsibleContent className="dark:bg-slate-900">
+      <CollapsibleContent className="flex flex-col dark:bg-slate-900">
         {isLoading && (
           <div className="p-4 text-center dark:text-slate-400">
             <Loader2Icon className="animate-spin" />
@@ -49,7 +49,7 @@ export const TicketGroup = ({
         )}
 
         {ticketsData.map((ticket) => (
-          <TicketCard key={ticket.id} ticket={ticket} />
+          <DraggableTicketCard key={ticket.id} ticket={ticket} />
         ))}
 
         {ticketsData.length === 0 && !isLoading && (
